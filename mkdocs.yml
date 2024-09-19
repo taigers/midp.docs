@@ -1,0 +1,39 @@
+site_name: Orkid mIDP
+theme:
+  logo: assets/logo.png
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - toc.integrate
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.tabs.link
+    - content.code.annotation
+    - content.code.copy
+  language: en
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/toggle-switch-off-outline 
+        name: Switch to dark mode
+      primary: indigo
+      accent: indigo
+    - scheme: slate 
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode    
+      primary: indigo
+      accent: indigo
+plugins:
+  - search
+
+extra:
+  social:
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/company/orkidio
+
+
+copyright: |
+  &copy; 2024 <a href="http://www.orkid.io"  target="_blank" rel="noopener">Orkid.io</a>
