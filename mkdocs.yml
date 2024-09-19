@@ -30,7 +30,20 @@ theme:
 nav:
   - MIDP: index.md
   - Getting Started: getting-started.md
+  - Overview: overview.md
+  - Document Uploading: uploads.md
   - API Reference: api-reference.md
+  - FAQ: faq.md
+
+  
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
 
 
 plugins:
