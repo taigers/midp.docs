@@ -1,4 +1,4 @@
-site_name: Orkid mIDP
+site_name: Orkid MIDP
 theme:
   logo: assets/logo.png
   name: material
@@ -26,8 +26,16 @@ theme:
         name: Switch to light mode    
       primary: indigo
       accent: indigo
+
+nav:
+  - MIDP: index.md
+  - Getting Started: getting-started.md
+  - API Reference: api-reference.md
+
+
 plugins:
   - search
+  - swagger-ui-tag
 
 extra:
   social:
