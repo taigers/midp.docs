@@ -23,19 +23,13 @@ For a complete reference of the API operations check the [API Reference](/api-re
 ### Use the API from Windows
 
 ### Create an account
-Self-service account creation will come shorty, in the meantime contact [support@orkid.io](mailto:support@orkid.io) to get one. After getting registered in the platform you are going to get a ```user```, ```password``` and a ````client id````.
+Contact [support@orkid.io](mailto:support@orkid.io) to get a registered in MIDP. Once registration is confirmed, you will receive an email asking to reset your password, after which we'll send you a ````client id````. At this time you are all set to authenticate and start using the MIDP API.
+!!! note
+    Self-service account creation is a work in progress, we'll update the docs once it becomes available.
 
 ### Authenticate
 ```js
 curl --location 'https://cognito-idp.eu-west-1.amazonaws.com/' \
---header 'Upgrade-Insecure-Requests: 1' \
---header 'Referer: https://gidp-dev.auth.eu-west-1.amazoncognito.com/login?response_type=code&client_id=2g0783uoglj0i2n78mmgtfoujp&state=1234&redirect_uri=https%3A%2F%2Fgidp-dev.taiger.io' \
---header 'Origin: https://gidp-dev.auth.eu-west-1.amazoncognito.com' \
---header 'Accept-Language: en-US' \
---header 'Sec-Fetch_Site: same-origin' \
---header 'Sec-Fetch-Mode: navigate' \
---header 'Sec-Fetch-User: ?1' \
---header 'Sec-Fetch-Dest: document' \
 --header 'Content-Type: application/x-amz-json-1.1' \
 --header 'X-Amz-Target: AWSCognitoIdentityProviderService.InitiateAuth' \
 --data-raw '{
@@ -73,15 +67,19 @@ curl --location 'https://cognito-idp.eu-west-1.amazonaws.com/' \
 }
 ```
 #### Token use
+All MIDP API endpoints require authentication prior using them. In order to access API endpoints, you must send the header ```'Authorization: Bearer <AccessToken>'```. 
 
 ### Base Url
 Orkid.io API is exposed at [https://api.midp-dev.taiger.io](https://api.midp-dev.taiger.io), from now on ```baseUrl``` variable in ```curl``` commands.
 
 ### Create a project
+A project is a container for documents, extraction schemas, classifiers and extractors configuration. The first step to use the MIDP API after getting registered in an Organisation is to create a new project. You can create a project through the API with:
+
 ````js
 curl -X 'POST' \
   '{{baseUrl}}/projects' \
   -H 'accept: application/json' \
+  -H 'Authorization: Bearer <AccessToken>' \
   -H 'x-organization-id: {{organization_id}}' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -90,10 +88,12 @@ curl -X 'POST' \
 ````
 
 ### Create a document category
+Document categories reprsent the different types of documents a project can process, e.g. invoices, contracts, etc. The categories will be used by the project's classifiers and extractors to properly select the underlying LLM to process the incoming documents. You can create a category through the API with:
 ````js
 curl -X 'POST' \
   '{{baseUrl}}/projects/{{project_id}}/categories' \
   -H 'accept: application/json' \
+  -H 'Authorization: Bearer <AccessToken>' \
   -H 'x-organization-id: {{organization_id}}' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -108,6 +108,7 @@ curl -X 'POST' \
 curl -X 'POST' \
   '{{baseUrl}}/projects/{{project_id}}/extractors' \
   -H 'accept: application/json' \
+  -H 'Authorization: Bearer <AccessToken>' \
   -H 'x-organization-id: {{organization_id}}' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -135,6 +136,7 @@ The schema of the data to be extracted will determine the output value parsing o
 curl -X 'POST' \
   '{{baseUrl}}/projects/{{project_id}}/datapoints?d_cardinality=one&d_type=text&extractor_id={{extractor_id}}' \
   -H 'accept: application/json' \
+  -H 'Authorization: Bearer <AccessToken>' \
   -H 'x-organization-id: {{organization_id}}' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -158,6 +160,7 @@ The Flow channel, aditionally to OCR, will classify (if applicable) and extract 
 curl -X 'POST' \
   '{{baseUrl}}/projects/{{project_id}}/documents/uploaded?collection=dev&channel=FLOW&category_id={{category_id}}' \
   -H 'accept: application/json' \
+  -H 'Authorization: Bearer <AccessToken>' \
   -H 'x-organization-id: {{organization_id}}' \
   -H 'Content-Type: multipart/form-data' \
   -F 'file=@Document.pdf;type=application/pdf'
@@ -168,6 +171,7 @@ curl -X 'POST' \
 curl -X 'PUT' \
   '{{baseUrl}}/projects/{{project_id}}/documents/{{document_id}}/extracted?extractor_id={{extractor_id}}' \
   -H 'accept: application/json' \
+  -H 'Authorization: Bearer <AccessToken>' \
   -H 'x-organization-id: {{organization_id}}'
 ````
 
@@ -176,5 +180,6 @@ curl -X 'PUT' \
 curl -X 'GET' \
   '{{baseUrl}}/projects/{{project_id}}/documents/{{document_id}}' \
   -H 'accept: application/json' \
+  -H 'Authorization: Bearer <AccessToken>' \
   -H 'x-organization-id: {{organization_id}}'
 ````
