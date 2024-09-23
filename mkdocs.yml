@@ -7,6 +7,7 @@ theme:
     - navigation.sections
     - toc.integrate
     - navigation.top
+    - navigation.instant
     - search.suggest
     - search.highlight
     - content.tabs.link
@@ -30,8 +31,8 @@ theme:
 nav:
   - MIDP: index.md
   - Getting Started: getting-started.md
-  - Overview: overview.md
-  - Document Uploading: uploads.md
+  # - Overview: overview.md
+  # - Document Uploading: uploads.md
   - API Reference: api-reference.md
   - FAQ: faq.md
 
